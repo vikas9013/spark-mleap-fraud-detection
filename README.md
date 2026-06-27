@@ -28,6 +28,28 @@ This repository implements a production-ready, low-latency machine learning pipe
 
 ---
 
+## 📂 Project Structure
+
+```text
+.
+├── hadoop/                   # Windows Hadoop binaries
+│   └── bin/
+│       ├── hadoop.dll
+│       └── winutils.exe
+├── app.py                    # FastAPI Gateway Server
+├── Dockerfile                # Dockerfile for FastAPI Gateway
+├── docker-compose.yml        # Multi-Container Orchestration (Gateway + MLeap)
+├── generate_data.py          # Synthetic Transaction Data Generator
+├── train_model.py            # PySpark ML training & MLeap serialization
+├── test_prediction.py        # Client validation/scoring script
+├── requirements.txt          # Python dependencies
+├── transactions.csv          # Generated dataset (Git ignored)
+├── model.zip                 # Serialized MLeap ML Bundle (Git ignored)
+└── transactions.db           # SQLite log database (Git ignored)
+```
+
+---
+
 ## 🌟 Key Features
 
 * **Decoupled Architecture**: Separation of heavy batch/offline training (PySpark) from fast, low-latency inference (MLeap C++ execution engine wrapped in Spring Boot).
@@ -149,3 +171,30 @@ Use the interactive Swagger documentation to test the endpoints:
 ### 4. Fetch Scoring Logs
 * **Endpoint**: `GET /history?limit=100`
 * **Response**: List of logged transactions containing `id`, `amount`, `time_of_day`, `merchant_category`, `device_type`, `is_fraud`, `fraud_probability`, `latency_ms`, and `timestamp`.
+
+---
+
+## 🗄️ Database Schema & Feature Engineering Details
+
+### 1. Database Table (`transaction_logs`)
+The SQLite database stores logs of scored transactions. The schema is mapped using SQLAlchemy ORM:
+* **`id`** (INTEGER, Primary Key): Unique auto-incrementing ID.
+* **`amount`** (FLOAT): The transaction amount in INR.
+* **`time_of_day`** (FLOAT): The hour of the transaction (0-23).
+* **`merchant_category`** (VARCHAR): The merchant category class.
+* **`device_type`** (VARCHAR): The device class used.
+* **`is_fraud`** (BOOLEAN): Classification output from the model (`true` if fraud, else `false`).
+* **`fraud_probability`** (FLOAT): The Random Forest model confidence score for fraud.
+* **`latency_ms`** (FLOAT): The end-to-end model transformation execution time in milliseconds.
+* **`timestamp`** (DATETIME): Auto-generated timestamp of the request.
+
+### 2. Feature Classes
+The categorical fields configured during `train_model.py` and handled by the MLeap pipeline support the following values:
+* **Merchant Categories**: `Groceries`, `Electronics`, `Clothing`, `Restaurants`, `Travel`, `OnlineRetail`.
+* **Device Types**: `Mobile`, `Desktop`, `Tablet`.
+
+---
+
+## 📜 License
+
+This project is open-source and available under the [MIT License](https://opensource.org/licenses/MIT).
