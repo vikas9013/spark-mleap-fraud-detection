@@ -18,6 +18,7 @@ transactions.db
 
 # Logs and system files
 *.log
+*.pdf
 .DS_Store
 .vscode/
 .idea/
