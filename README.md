@@ -1,5 +1,7 @@
 # End-to-End Fraud Detection with PySpark & MLeap Serving
 
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-blue?logo=github)](https://github.com/vikas9013/spark-mleap-fraud-detection)
+
 This repository implements a production-ready, low-latency machine learning pipeline for real-time transaction fraud detection. It decouples high-throughput PySpark model training from real-time serving using MLeap serialization, running inside a containerized environment with FastAPI and SQLite persistence.
 
 ---
@@ -49,7 +51,13 @@ This repository implements a production-ready, low-latency machine learning pipe
 
 ## 🚀 Getting Started
 
-### 1. Set Up Environment & Dependencies
+### 1. Clone the Repository & Set Up Environment
+Clone the repository to your local machine:
+```bash
+git clone https://github.com/vikas9013/spark-mleap-fraud-detection.git
+cd spark-mleap-fraud-detection
+```
+
 Create a virtual environment and install the required dependencies:
 ```bash
 python -m venv venv
