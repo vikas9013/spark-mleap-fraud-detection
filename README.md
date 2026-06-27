@@ -198,3 +198,10 @@ The categorical fields configured during `train_model.py` and handled by the MLe
 ## 📜 License
 
 This project is open-source and available under the [MIT License](https://opensource.org/licenses/MIT).
+
+---
+
+## 👨‍💻 Author
+
+**Vikas Singh Rawat**
+* LinkedIn: [Vikas Singh Rawat](https://www.linkedin.com/in/vikas-singh-rawat-4aa687294/)
