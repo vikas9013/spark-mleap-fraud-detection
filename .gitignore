@@ -1,0 +1,23 @@
+# Python Virtual Environment
+venv/
+.venv/
+env/
+
+# Python caching
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Project Data & Models (Large generated/compiled files)
+transactions.csv
+model.zip
+
+# SQLite Database
+transactions.db
+
+# Logs and system files
+*.log
+.DS_Store
+.vscode/
+.idea/

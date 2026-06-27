@@ -1,0 +1,24 @@
+name: spark-mleap-fraud-detection
+
+services:
+  mleap-serving:
+    image: combustml/mleap-spring-boot:0.23.3
+    ports:
+      - "8082:65327"
+    volumes:
+      - .:/models
+    environment:
+      - JAVA_OPTS=-Xmx2g
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - MLEAP_SERVER_URL=http://mleap-serving:65327
+    depends_on:
+      - mleap-serving
